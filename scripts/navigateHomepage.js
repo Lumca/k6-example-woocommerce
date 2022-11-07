@@ -1,11 +1,10 @@
 import { sleep, group } from "k6";
-import http from "k6/http";
 import { checkStatus } from "../common/utils.js";
 import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function navigateHomepage() {
   group("Navigate to Homepage", function () {
-    let response = http.get("http://ecommerce.test.k6.io/", {
+    let response = globalThis.session.get("/", {
       headers: {
         accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -47,8 +46,8 @@ export function navigateHomepage() {
     globalThis.VARS["selectedProduct"] = products[Math.floor(Math.random() * products.length)];
     console.debug(`Selected Product with ID: '${globalThis.VARS["selectedProduct"].id}' and SKU: '${globalThis.VARS["selectedProduct"].sku}'`);
 
-    response = http.post(
-      "http://ecommerce.test.k6.io/?wc-ajax=get_refreshed_fragments",
+    response = globalThis.session.post(
+      "/?wc-ajax=get_refreshed_fragments",
       {
         time: Date.now(),
       },

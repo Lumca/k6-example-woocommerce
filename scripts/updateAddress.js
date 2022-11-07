@@ -1,12 +1,11 @@
 import { sleep, group } from "k6";
-import http from "k6/http";
 import { checkStatus } from "../common/utils.js";
 import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function updateAddress() {
   group("Update Address", function () {
-    let response = http.post(
-      "http://ecommerce.test.k6.io/?wc-ajax=update_order_review",
+    let response = globalThis.session.post(
+      "/?wc-ajax=update_order_review",
       {
         security: globalThis.VARS["securityToken"],
         payment_method: "cod",
@@ -48,8 +47,8 @@ export function updateAddress() {
       printOnError: true
     });
 
-    response = http.post(
-      "http://ecommerce.test.k6.io/?wc-ajax=update_order_review",
+    response = globalThis.session.post(
+      "/?wc-ajax=update_order_review",
       {
         security: globalThis.VARS["securityToken"],
         payment_method: "cod",

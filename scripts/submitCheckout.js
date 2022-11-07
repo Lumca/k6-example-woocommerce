@@ -9,8 +9,8 @@ export function submitCheckout() {
   let response;
 
   group("Submit Checkout", function () {
-    response = http.post(
-      "http://ecommerce.test.k6.io/?wc-ajax=checkout",
+    response = globalThis.session.post(
+      "/?wc-ajax=checkout",
       {
         billing_first_name: "k6",
         billing_last_name: "Test",
@@ -37,7 +37,7 @@ export function submitCheckout() {
           "content-type":
             "application/x-www-form-urlencoded;type=content-type;mimeType=application/x-www-form-urlencoded",
           host: "ecommerce.test.k6.io",
-          origin: "http://ecommerce.test.k6.io",
+          origin: "/",
           "x-requested-with": "XMLHttpRequest",
         },
       }
@@ -127,8 +127,8 @@ export function submitCheckout() {
       ]
     });
 
-    response = http.post(
-      "http://ecommerce.test.k6.io/?wc-ajax=get_refreshed_fragments",
+    response = globalThis.session.post(
+      "/?wc-ajax=get_refreshed_fragments",
       {
         time: "1613672584353",
       },

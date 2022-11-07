@@ -1,12 +1,11 @@
 import { sleep, group } from "k6";
-import http from "k6/http";
 import { checkStatus } from "../common/utils.js";
 import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function addToCart() {
   group("Add to Cart", function () {
-    const response = http.post(
-      "http://ecommerce.test.k6.io/?wc-ajax=add_to_cart",
+    const response = globalThis.session.post(
+      "/?wc-ajax=add_to_cart",
       {
         product_sku: globalThis.VARS["selectedProduct"].sku,
         product_id: globalThis.VARS["selectedProduct"].id,

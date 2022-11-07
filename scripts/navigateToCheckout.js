@@ -1,11 +1,10 @@
 import { sleep, group } from "k6";
-import http from "k6/http";
 import { checkStatus } from "../common/utils.js";
 import { randomIntBetween, findBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function navigateToCheckout() {
   group("Navigate to Checkout", function () {
-    const response = http.get("http://ecommerce.test.k6.io/checkout/", {
+    const response = globalThis.session.get("/checkout/", {
       headers: {
         accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
